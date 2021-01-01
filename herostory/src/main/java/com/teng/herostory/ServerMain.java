@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  *  测试地址：  http://cdn0001.afrxvk.cn/hero_story/demo/step010/index.html?serverAddr=127.0.0.1:12345&userId=1
  **/
 public class ServerMain {
-    static private final Logger LOGGER = LoggerFactory.getLogger(ServerMain.class);
+    static  final Logger LOGGER = LoggerFactory.getLogger(ServerMain.class);
 
     public static void main(String[] args) {
         PropertyConfigurator.configure(ServerMain.class.getClassLoader().getResourceAsStream("log4j.properties"));
