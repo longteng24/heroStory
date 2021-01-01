@@ -1,6 +1,7 @@
 package com.teng.herostory;
 
 import com.google.protobuf.GeneratedMessageV3;
+import com.google.protobuf.Message;
 import com.teng.herostory.msg.GameMsgProtocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -40,27 +41,15 @@ public class GameMsgDecoder extends ChannelInboundHandlerAdapter {
             byte[] msgBody = new byte[byteBuf.readableBytes()];
             byteBuf.readBytes(msgBody);
 
-            GeneratedMessageV3 cmd = null;
-             // 根据消息编码，判断消息类型
-            switch (msgCode) {
-                //用户 进入
-                case GameMsgProtocol
-                        .MsgCode.USER_ENTRY_CMD_VALUE:
-                    cmd = GameMsgProtocol.UserEntryCmd.parseFrom(msgBody);
-                    break;
-                    //还有谁
-                 case GameMsgProtocol
-                        .MsgCode.WHO_ELSE_IS_HERE_CMD_VALUE:
-                    cmd = GameMsgProtocol.WhoElseIsHereCmd.parseFrom(msgBody);
-                    break;
-                    //用户移动
-                case GameMsgProtocol
-                        .MsgCode.USER_MOVE_TO_CMD_VALUE:
-                    cmd = GameMsgProtocol.UserMoveToCmd.parseFrom(msgBody);
-                    break;
-                default:
-                    break;
-            }
+
+            // 获取消息构建器
+            Message.Builder msgBuilder = GameMsgRecognizer.getBuilderByMsgCode(msgCode);
+            msgBuilder.clear();
+            msgBuilder.mergeFrom(msgBody);
+
+            //构建消息实体
+            Message cmd = msgBuilder.build();
+
             if (null != cmd) {
                 // 处理完成，把处理好的消息放回流水线，继续执行
                 ctx.fireChannelRead(cmd);
