@@ -32,16 +32,15 @@ public class GameMsgEncoder extends ChannelOutboundHandlerAdapter {
             }
             //消息编码
             int msgCode=-1;
-            //消息体
-            byte[] msgBody;
+
             if (msg instanceof GameMsgProtocol.UserEntryResult) {
                 msgCode = GameMsgProtocol.MsgCode.USER_ENTRY_RESULT_VALUE;
-                msgBody= ((GameMsgProtocol.UserEntryResult) msg).toByteArray();
-
             }else  if (msg instanceof GameMsgProtocol.WhoElseIsHereResult) {
                 msgCode = GameMsgProtocol.MsgCode.WHO_ELSE_IS_HERE_RESULT_VALUE;
-                msgBody= ((GameMsgProtocol.WhoElseIsHereResult) msg).toByteArray();
-
+            }else  if (msg instanceof GameMsgProtocol.UserMoveToResult) {
+                msgCode = GameMsgProtocol.MsgCode.USER_MOVE_TO_RESULT_VALUE;
+            }else  if (msg instanceof GameMsgProtocol.UserQuitResult) {
+                msgCode = GameMsgProtocol.MsgCode.USER_QUIT_RESULT_VALUE;
             }else {
                 LOGGER.error("无法识别的消息类型，msgClazz={}",
                         msg.getClass().getSimpleName());
@@ -49,7 +48,8 @@ public class GameMsgEncoder extends ChannelOutboundHandlerAdapter {
                 return;
             }
 
-
+            //消息体
+            byte[]   msgBody= ((GeneratedMessageV3) msg).toByteArray();
             ByteBuf byteBuf = ctx.alloc().buffer();
             byteBuf.writeShort((short) msgBody.length);  //长度
             byteBuf.writeShort((short) msgCode);         //编码

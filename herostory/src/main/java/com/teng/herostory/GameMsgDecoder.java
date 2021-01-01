@@ -43,13 +43,20 @@ public class GameMsgDecoder extends ChannelInboundHandlerAdapter {
             GeneratedMessageV3 cmd = null;
              // 根据消息编码，判断消息类型
             switch (msgCode) {
+                //用户 进入
                 case GameMsgProtocol
                         .MsgCode.USER_ENTRY_CMD_VALUE:
                     cmd = GameMsgProtocol.UserEntryCmd.parseFrom(msgBody);
                     break;
+                    //还有谁
                  case GameMsgProtocol
                         .MsgCode.WHO_ELSE_IS_HERE_CMD_VALUE:
                     cmd = GameMsgProtocol.WhoElseIsHereCmd.parseFrom(msgBody);
+                    break;
+                    //用户移动
+                case GameMsgProtocol
+                        .MsgCode.USER_MOVE_TO_CMD_VALUE:
+                    cmd = GameMsgProtocol.UserMoveToCmd.parseFrom(msgBody);
                     break;
                 default:
                     break;

@@ -58,9 +58,9 @@ public class ServerMain {
                             new HttpServerCodec(),
                             new HttpObjectAggregator(65535),                //消息长度限制
                             new WebSocketServerProtocolHandler("/websocket"),
-                            new GameMsgDecoder(),
-                            new GameMsgEncoder(),
-                            new GameMsgHandler()
+                            new GameMsgDecoder(),  //自定义解码
+                            new GameMsgEncoder(),  //自定义编码
+                            new GameMsgHandler()   //自定义处理器
                     );
 
                 }
