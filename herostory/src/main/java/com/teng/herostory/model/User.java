@@ -1,4 +1,4 @@
-package com.teng.herostory;
+package com.teng.herostory.model;
 
 /**
  * @program: nettyProject
@@ -11,10 +11,27 @@ public class User {
     private int userId;
     //英雄形象
     private String heroAvatar;
+    //用户血量
+    private int currHp;
 
-    public User(int userId, String heroAvatar) {
+    public int getCurrHp() {
+        return currHp;
+    }
+
+    public void setCurrHp(int currHp) {
+        this.currHp = currHp;
+    }
+
+    public MoveState getMoveState() {
+        return moveState;
+    }
+
+    private final MoveState moveState = new MoveState();
+
+    public User(int userId, String heroAvatar,int currHp) {
         this.userId = userId;
         this.heroAvatar = heroAvatar;
+        this.currHp = currHp;
     }
 
     public int getUserId() {

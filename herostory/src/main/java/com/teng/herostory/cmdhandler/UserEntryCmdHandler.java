@@ -1,8 +1,8 @@
 package com.teng.herostory.cmdhandler;
 
 import com.teng.herostory.Broadcaster;
-import com.teng.herostory.User;
-import com.teng.herostory.UserManager;
+import com.teng.herostory.model.User;
+import com.teng.herostory.model.UserManager;
 import com.teng.herostory.msg.GameMsgProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.AttributeKey;
@@ -23,7 +23,7 @@ public class UserEntryCmdHandler implements ICmdHandler<GameMsgProtocol.UserEntr
         int userId = cmd.getUserId();
         String heroAvatar = cmd.getHeroAvatar();
 
-        UserManager.addUser(new User(userId, heroAvatar));
+        UserManager.addUser(new User(userId, heroAvatar,100));
 
         //将用户id保存至session
         ctx.channel().attr(AttributeKey.valueOf("userId")).set(userId);
@@ -34,6 +34,6 @@ public class UserEntryCmdHandler implements ICmdHandler<GameMsgProtocol.UserEntr
 
         // 构建结束并广播
         GameMsgProtocol.UserEntryResult newResult = resultBuilder.build();
-        Broadcaster.Broadcast(newResult);
+        Broadcaster.broadcast(newResult);
     }
 }

@@ -41,7 +41,7 @@ public final class Broadcaster {
      * 广播消息
      * @param msg 消息内容
      */
-    static public void Broadcast(Object msg) {
+    static public void broadcast(Object msg) {
         if (null == msg) {
             return;
         }

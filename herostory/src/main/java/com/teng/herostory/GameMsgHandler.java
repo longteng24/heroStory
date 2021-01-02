@@ -2,15 +2,13 @@ package com.teng.herostory;
 
 import com.google.protobuf.GeneratedMessageV3;
 import com.teng.herostory.cmdhandler.*;
+import com.teng.herostory.model.UserManager;
 import com.teng.herostory.msg.GameMsgProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.AttributeKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @program: nettyProject
@@ -62,7 +60,7 @@ public class GameMsgHandler extends SimpleChannelInboundHandler<Object> {
             resultBuilder.setQuitUserId(userId);
 
             GameMsgProtocol.UserQuitResult newResult = resultBuilder.build();
-            Broadcaster.Broadcast(newResult);
+            Broadcaster.broadcast(newResult);
 
         } catch (Exception ex) {
             LOGGER.error(ex.getMessage(), ex);

@@ -30,6 +30,10 @@ import org.slf4j.LoggerFactory;
  *     粘包：收发消息， 不知道读到哪里结束  (读消息头，消息长度，如果不够就暂存继续等)
  *
  *     protobuf协议  通过protobuf 协议文件 生成java代码
+ *
+ *   修改用户移动协议：  http://cdn0001.afrxvk.cn/hero_story/demo/step020/index.html?serverAddr=127.0.0.1:12345&userId=2
+ *
+ *   jps   jstack
  **/
 public class ServerMain {
     static  final Logger LOGGER = LoggerFactory.getLogger(ServerMain.class);

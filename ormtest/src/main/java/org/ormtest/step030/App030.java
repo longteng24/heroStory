@@ -29,7 +29,7 @@ public class App030 {
         // 加载 Mysql 驱动
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
         // 数据库连接地址
-        String dbConnStr = "jdbc:mysql://localhost:3306/ormtest?user=root&password=root";
+        String dbConnStr = "jdbc:mysql://121.36.28.218:3306/myblog?useUnicode=true&characterEncoding=utf-8&useSSL=false&user=root&password=tengteng";
         // 创建数据库连接
         Connection conn = DriverManager.getConnection(dbConnStr);
         // 简历陈述对象

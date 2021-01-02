@@ -1,12 +1,6 @@
-package com.teng.herostory;
-
-import io.netty.channel.Channel;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.concurrent.GlobalEventExecutor;
+package com.teng.herostory.model;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -54,5 +48,9 @@ public final class UserManager {
     public static Collection<User> listUser() {
 
       return _userMap.values();
+    }
+
+    public static User getUserById(Integer userId) {
+        return _userMap.get(userId);
     }
 }

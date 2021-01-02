@@ -1,7 +1,8 @@
 package com.teng.herostory.cmdhandler;
 
-import com.teng.herostory.User;
-import com.teng.herostory.UserManager;
+import com.teng.herostory.model.MoveState;
+import com.teng.herostory.model.User;
+import com.teng.herostory.model.UserManager;
 import com.teng.herostory.msg.GameMsgProtocol;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -27,6 +28,20 @@ public class WhoElseIsHereCmdHandler implements ICmdHandler<GameMsgProtocol.WhoE
                     GameMsgProtocol.WhoElseIsHereResult.UserInfo.newBuilder();
             userInfoBuilder.setUserId(curUser.getUserId());
             userInfoBuilder.setHeroAvatar(curUser.getHeroAvatar());
+
+            //获取移动状态
+            MoveState myState = curUser.getMoveState();
+            GameMsgProtocol.WhoElseIsHereResult.UserInfo.MoveState.Builder
+                    myStateBuilder = GameMsgProtocol.WhoElseIsHereResult.UserInfo.MoveState.newBuilder();
+            myStateBuilder.setFromPosX(myState.fromPosX);
+            myStateBuilder.setFromPosY(myState.fromPosY);
+            myStateBuilder.setToPosX(myState.toPosX);
+            myStateBuilder.setToPosY(myState.toPosY);
+            myStateBuilder.setStartTime(myState.startTime);
+            //将移动状态，设置到用户中
+            userInfoBuilder.setMoveState(myStateBuilder);
+
+
             resultBuilder.addUserInfo(userInfoBuilder);
 
         }
