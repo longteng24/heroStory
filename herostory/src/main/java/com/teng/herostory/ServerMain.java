@@ -1,5 +1,6 @@
 package com.teng.herostory;
 
+import com.teng.herostory.cmdhandler.CmdHandlerFactory;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -35,6 +36,11 @@ public class ServerMain {
 
     public static void main(String[] args) {
         PropertyConfigurator.configure(ServerMain.class.getClassLoader().getResourceAsStream("log4j.properties"));
+
+        //绑定消息消息识别器
+        GameMsgRecognizer.init();
+        //消息处理器初始化
+        CmdHandlerFactory.init();
 
         // 拉客的   accpet  客户端请求，建立连接，交给work处理
         EventLoopGroup bossGroup = new NioEventLoopGroup();
