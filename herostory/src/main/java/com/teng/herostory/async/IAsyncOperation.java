@@ -9,6 +9,14 @@ package com.teng.herostory.async;
 public interface IAsyncOperation {
 
     /**
+     * 获取绑定id
+     *
+     * @return
+     */
+    default int getBindId() {
+        return 0;
+    }
+    /**
      * 执行异步操作
      */
     void doAsync();

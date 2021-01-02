@@ -50,6 +50,12 @@ public final class LoginService {
         AsyncGetUserEntity asyncOp = new AsyncGetUserEntity(userName, password) {
 
             @Override
+            public int getBindId() {
+                //实现hash算法，设置bindId   根据用户名绑定到固定线程执行逻辑
+                return userName.charAt(userName.length() - 1);
+            }
+
+            @Override
             public void doFinish() {
                 if (null != callback) {
                     callback.apply(this.getUserEntity());

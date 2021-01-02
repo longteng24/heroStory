@@ -20,18 +20,23 @@ public class AsyncOperationProcessor {
     private static final AsyncOperationProcessor _instance = new AsyncOperationProcessor();
 
     /**
-     * 创建一个单线程的线程池
+     * 创建单线程数组
      */
-    private final ExecutorService _es = Executors.newSingleThreadExecutor((newRunable) -> {
-        Thread newThread = new Thread(newRunable);
-        newThread.setName("AsyncOperationProcessor");
-        return newThread;
-    });
+    private final ExecutorService[] _esArray = new ExecutorService[8];
 
     /**
      * 私有化构造
      */
     private AsyncOperationProcessor() {
+        for (int i = 0; i < _esArray.length; i++) {
+           final String threadName= "AsyncOperationProcessor[" + i + "]";
+            _esArray[i]= Executors.newSingleThreadExecutor((r) -> {
+                Thread thread = new Thread(r);
+                thread.setName(threadName);
+                return thread;
+            });
+
+        }
     }
 
 
@@ -47,7 +52,11 @@ public class AsyncOperationProcessor {
         if (null == op) {
             return;
         }
-        _es.submit(()->{
+
+        int bindId =Math.abs(op.getBindId()) ;
+        int esIndex = bindId % _esArray.length;
+
+        _esArray[esIndex].submit(()->{
             //执行异步操作
             op.doAsync();
             //回到主线程 执行完成逻辑
