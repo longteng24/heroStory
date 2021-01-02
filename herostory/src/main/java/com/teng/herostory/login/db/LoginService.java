@@ -3,9 +3,12 @@ package com.teng.herostory.login.db;
 import com.sun.org.apache.regexp.internal.RE;
 import com.teng.herostory.GameMsgDecoder;
 import com.teng.herostory.MySqlSessionFactory;
+import com.teng.herostory.async.AsyncOperationProcessor;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Function;
 
 /**
  * @program: nettyProject
@@ -38,38 +41,43 @@ public final class LoginService {
         return _instance;
     }
 
-    public UserEntity userLogin(String userName, String password) {
+    public void userLogin(String userName, String password, Function<UserEntity,Void> callback) {
         if (null == userName ||
                 null == password) {
-            return null;
+            return ;
         }
 
-        //安全写法，自动关闭连接
-        try (SqlSession mySqlSession = MySqlSessionFactory.openSession()) {
-            //获取 dao
-            IUserDao dao = mySqlSession.getMapper(IUserDao.class);
-            //获取用户实体
-            UserEntity userEntity = dao.getByUserName(userName);
+        AsyncOperationProcessor.getInstance().process(()->{
+            //安全写法，自动关闭连接
+            try (SqlSession mySqlSession = MySqlSessionFactory.openSession()) {
+                //获取 dao
+                IUserDao dao = mySqlSession.getMapper(IUserDao.class);
+                //获取用户实体
+                UserEntity userEntity = dao.getByUserName(userName);
 
-            LOGGER.info("当前线程={}",Thread.currentThread().getName());
-            //todo 单线程计算，多线程io
+                LOGGER.info("当前线程={}",Thread.currentThread().getName());
+                //todo 单线程计算，多线程io
 
-            if (userEntity != null) {
-                if (password.equals(userEntity.getPassword())) {
-                    throw new RuntimeException("密码错误");
+                if (userEntity != null) {
+                    if (password.equals(userEntity.getPassword())) {
+                        throw new RuntimeException("密码错误");
+                    }
+                } else {
+                    userEntity = new UserEntity();
+                    userEntity.setUserName(userName);
+                    userEntity.setPassword(password);
+                    userEntity.setHeroAvatar("Hero_Shaman");
+
+                    dao.insertInto(userEntity);
                 }
-            } else {
-                userEntity = new UserEntity();
-                userEntity.setUserName(userName);
-                userEntity.setPassword(password);
-                userEntity.setHeroAvatar("Hero_Shaman");
-
-                dao.insertInto(userEntity);
+                if (null != callback) {
+                    // callback(userEntity);
+                    callback.apply(userEntity);
+                }
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
             }
-            return userEntity;
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-        return null;
+        });
+
     }
 }

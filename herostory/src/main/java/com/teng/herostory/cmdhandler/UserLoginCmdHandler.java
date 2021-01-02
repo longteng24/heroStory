@@ -31,32 +31,35 @@ public class UserLoginCmdHandler implements ICmdHandler<GameMsgProtocol.UserLogi
             return;
         }
 
-        //获取用户实体
-        UserEntity userEntity = LoginService.getInstance().userLogin(userName, password);
+        //获取用户实体  ，回调方式 处理返回值 （观察者模式）
+        LoginService.getInstance().userLogin(userName, password,(userEntity)->{
+            GameMsgProtocol.UserLoginResult.Builder resultBuilder = GameMsgProtocol.UserLoginResult.newBuilder();
 
-        GameMsgProtocol.UserLoginResult.Builder resultBuilder = GameMsgProtocol.UserLoginResult.newBuilder();
-
-        if (null == userEntity) {
-            resultBuilder.setUserId(-1);
-            resultBuilder.setUserName("");
-            resultBuilder.setHeroAvatar("");
-        } else {
-
+            if (null == userEntity) {
+                resultBuilder.setUserId(-1);
+                resultBuilder.setUserName("");
+                resultBuilder.setHeroAvatar("");
+            } else {
 
 
 
-            UserManager.addUser(new User(userEntity.getUserId(), userEntity.getUserName(),userEntity.getHeroAvatar(),100));
 
-            //将用户id保存至session
-            ctx.channel().attr(AttributeKey.valueOf("userId")).set(userEntity.getUserId());
+                UserManager.addUser(new User(userEntity.getUserId(), userEntity.getUserName(),userEntity.getHeroAvatar(),100));
 
-            resultBuilder.setUserId(userEntity.getUserId());
-            resultBuilder.setUserName(userEntity.getUserName());
-            resultBuilder.setHeroAvatar(userEntity.getHeroAvatar());
-        }
+                //将用户id保存至session
+                ctx.channel().attr(AttributeKey.valueOf("userId")).set(userEntity.getUserId());
 
-        GameMsgProtocol.UserLoginResult newResult = resultBuilder.build();
-        ctx.writeAndFlush(newResult);
+                resultBuilder.setUserId(userEntity.getUserId());
+                resultBuilder.setUserName(userEntity.getUserName());
+                resultBuilder.setHeroAvatar(userEntity.getHeroAvatar());
+            }
+
+            GameMsgProtocol.UserLoginResult newResult = resultBuilder.build();
+            ctx.writeAndFlush(newResult);
+            return null;
+        });
+
+
 
 
     }
