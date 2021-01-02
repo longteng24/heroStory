@@ -34,6 +34,8 @@ import org.slf4j.LoggerFactory;
  *   修改用户移动协议：  http://cdn0001.afrxvk.cn/hero_story/demo/step020/index.html?serverAddr=127.0.0.1:12345&userId=2
  *
  *   jps   jstack
+ *
+ *   用户登录  http://cdn0001.afrxvk.cn/hero_story/demo/step030/index.html?serverAddr=127.0.0.1:12345
  **/
 public class ServerMain {
     static  final Logger LOGGER = LoggerFactory.getLogger(ServerMain.class);
@@ -45,6 +47,8 @@ public class ServerMain {
         GameMsgRecognizer.init();
         //消息处理器初始化
         CmdHandlerFactory.init();
+        //初始化数据库连接
+        MySqlSessionFactory.init();
 
         // 拉客的   accpet  客户端请求，建立连接，交给work处理
         EventLoopGroup bossGroup = new NioEventLoopGroup();

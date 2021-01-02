@@ -10,6 +10,8 @@ public class User {
     //用户id
     private int userId;
     //英雄形象
+    private String userName;
+    //英雄形象
     private String heroAvatar;
     //用户血量
     private int currHp;
@@ -28,10 +30,19 @@ public class User {
 
     private final MoveState moveState = new MoveState();
 
-    public User(int userId, String heroAvatar,int currHp) {
+    public User(int userId,String userName, String heroAvatar,int currHp) {
         this.userId = userId;
+        this.userName = userName;
         this.heroAvatar = heroAvatar;
         this.currHp = currHp;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getUserId() {
