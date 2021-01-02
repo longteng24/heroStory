@@ -1,5 +1,8 @@
 package com.teng.herostory.async;
 
+import com.teng.herostory.MainThreadProcessor;
+import sun.applet.Main;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,12 +41,18 @@ public class AsyncOperationProcessor {
 
     /**
      * 执行异步操作
-     * @param runnable
+     * @param op
      */
-    public void process(Runnable runnable) {
-        if (null == runnable) {
+    public void process(IAsyncOperation op) {
+        if (null == op) {
             return;
         }
-        _es.submit(runnable);
+        _es.submit(()->{
+            //执行异步操作
+            op.doAsync();
+            //回到主线程 执行完成逻辑
+            MainThreadProcessor.getInstance().process(op::doFinish);
+
+        });
     }
 }

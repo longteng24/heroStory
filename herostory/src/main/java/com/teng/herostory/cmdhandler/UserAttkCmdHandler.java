@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * @create: 2021-01-02 10:50
  **/
 public class UserAttkCmdHandler implements ICmdHandler< GameMsgProtocol.UserAttkCmd> {
-    static final Logger LOGGER = LoggerFactory.getLogger(UserAttkCmdHandler.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(UserLoginCmdHandler.class);
 
     @Override
     public void handle(ChannelHandlerContext ctx, GameMsgProtocol.UserAttkCmd cmd) {

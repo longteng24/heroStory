@@ -84,6 +84,17 @@ public class MainThreadProcessor {
     }
 
     /**
+     * 处理runable实例
+     * @param r
+     */
+    public void process(Runnable r) {
+        if (null == r) {
+            return;
+        }
+        _es.submit(r);
+    }
+
+    /**
      * 转型
      * @param msg
      * @param <TCmd>

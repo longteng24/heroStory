@@ -1,12 +1,13 @@
 package com.teng.herostory.cmdhandler;
 
 import com.teng.herostory.login.db.LoginService;
-import com.teng.herostory.login.db.UserEntity;
 import com.teng.herostory.model.User;
 import com.teng.herostory.model.UserManager;
 import com.teng.herostory.msg.GameMsgProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.AttributeKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @program: nettyProject
@@ -15,6 +16,7 @@ import io.netty.util.AttributeKey;
  * @create: 2021-01-02 16:07
  **/
 public class UserLoginCmdHandler implements ICmdHandler<GameMsgProtocol.UserLoginCmd> {
+    static final Logger LOGGER = LoggerFactory.getLogger(UserAttkCmdHandler.class);
 
     @Override
     public void handle(ChannelHandlerContext ctx, GameMsgProtocol.UserLoginCmd cmd) {
@@ -30,10 +32,13 @@ public class UserLoginCmdHandler implements ICmdHandler<GameMsgProtocol.UserLogi
                 null == password) {
             return;
         }
+        LOGGER.info("11当前线程={}",Thread.currentThread().getName());
 
         //获取用户实体  ，回调方式 处理返回值 （观察者模式）
         LoginService.getInstance().userLogin(userName, password,(userEntity)->{
             GameMsgProtocol.UserLoginResult.Builder resultBuilder = GameMsgProtocol.UserLoginResult.newBuilder();
+
+            LOGGER.info("22当前线程={}",Thread.currentThread().getName());
 
             if (null == userEntity) {
                 resultBuilder.setUserId(-1);

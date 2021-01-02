@@ -4,6 +4,7 @@ import com.sun.org.apache.regexp.internal.RE;
 import com.teng.herostory.GameMsgDecoder;
 import com.teng.herostory.MySqlSessionFactory;
 import com.teng.herostory.async.AsyncOperationProcessor;
+import com.teng.herostory.async.IAsyncOperation;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +47,52 @@ public final class LoginService {
                 null == password) {
             return ;
         }
+        AsyncGetUserEntity asyncOp = new AsyncGetUserEntity(userName, password) {
 
-        AsyncOperationProcessor.getInstance().process(()->{
+            @Override
+            public void doFinish() {
+                if (null != callback) {
+                    callback.apply(this.getUserEntity());
+                }
+
+            }
+        };
+        AsyncOperationProcessor.getInstance().process(asyncOp);
+
+    }
+
+    private class AsyncGetUserEntity implements IAsyncOperation {
+
+        /**
+         * 用户名称
+         */
+        private final String userName;
+
+        /**
+         * 用户密码
+         */
+        private final String password;
+
+        /**
+         * 用户实体
+         */
+        private UserEntity _userEntity;
+
+        /**
+         * 获取用户实体
+         * @return
+         */
+        public UserEntity getUserEntity() {
+            return _userEntity;
+        }
+
+        public AsyncGetUserEntity(String userName, String password) {
+            this.userName = userName;
+            this.password = password;
+        }
+
+        @Override
+        public void doAsync() {
             //安全写法，自动关闭连接
             try (SqlSession mySqlSession = MySqlSessionFactory.openSession()) {
                 //获取 dao
@@ -70,14 +115,11 @@ public final class LoginService {
 
                     dao.insertInto(userEntity);
                 }
-                if (null != callback) {
-                    // callback(userEntity);
-                    callback.apply(userEntity);
-                }
+
+               _userEntity = userEntity;
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
             }
-        });
-
+        }
     }
 }
