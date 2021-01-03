@@ -1,13 +1,16 @@
 package com.teng.herostory.login.db;
 
+import com.alibaba.fastjson.JSONObject;
 import com.sun.org.apache.regexp.internal.RE;
 import com.teng.herostory.GameMsgDecoder;
 import com.teng.herostory.MySqlSessionFactory;
 import com.teng.herostory.async.AsyncOperationProcessor;
 import com.teng.herostory.async.IAsyncOperation;
+import com.teng.herostory.util.RedisUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.Jedis;
 
 import java.util.function.Function;
 
@@ -47,7 +50,7 @@ public final class LoginService {
                 null == password) {
             return ;
         }
-        AsyncGetUserEntity asyncOp = new AsyncGetUserEntity(userName, password) {
+        AsyncOperationProcessor.getInstance().process(new AsyncGetUserEntity(userName, password) {
 
             @Override
             public int getBindId() {
@@ -62,8 +65,27 @@ public final class LoginService {
                 }
 
             }
-        };
-        AsyncOperationProcessor.getInstance().process(asyncOp);
+        });
+
+    }
+
+    /**
+     * 更新redis中用户信息
+     * @param userEntity
+     */
+    private void updateBasicInfoInRedis(UserEntity userEntity) {
+        if (userEntity == null) {
+            return;
+        }
+        try (Jedis redis= RedisUtil.getJedis()) {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("userName", userEntity.getUserName());
+            jsonObj.put("heroAvatar", userEntity.getHeroAvatar());
+
+            redis.hset("User_" + userEntity.getUserId(),"BasicInfo",jsonObj.toJSONString());
+        }catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
 
     }
 
@@ -121,7 +143,7 @@ public final class LoginService {
 
                     dao.insertInto(userEntity);
                 }
-
+                LoginService.getInstance().updateBasicInfoInRedis(userEntity);
                _userEntity = userEntity;
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);

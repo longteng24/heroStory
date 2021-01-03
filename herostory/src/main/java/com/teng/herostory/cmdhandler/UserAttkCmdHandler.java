@@ -1,10 +1,10 @@
 package com.teng.herostory.cmdhandler;
 
-import com.google.protobuf.GeneratedMessageV3;
 import com.teng.herostory.Broadcaster;
-import com.teng.herostory.GameMsgDecoder;
 import com.teng.herostory.model.User;
 import com.teng.herostory.model.UserManager;
+import com.teng.herostory.mq.MqProducer;
+import com.teng.herostory.mq.VictorMsg;
 import com.teng.herostory.msg.GameMsgProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.AttributeKey;
@@ -54,6 +54,8 @@ public class UserAttkCmdHandler implements ICmdHandler< GameMsgProtocol.UserAttk
         if (targetUser.getCurrHp() <= 0) {
             //广播死亡消息
             broadcastDieResult(targetUserId);
+
+            MqProducer.sendMsg("herostory_victor",new VictorMsg(attkUserId,targetUserId));
         }
     }
 

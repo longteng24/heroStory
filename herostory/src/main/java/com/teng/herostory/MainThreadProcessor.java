@@ -7,10 +7,8 @@ import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
 
 /**
  * @program: nettyProject
@@ -91,7 +89,7 @@ public class MainThreadProcessor {
         if (null == r) {
             return;
         }
-        _es.submit(r);
+        _es.submit(new SafeRun(r));
     }
 
     /**
@@ -106,4 +104,39 @@ public class MainThreadProcessor {
         }
         return (TCmd)msg;
     }
+
+
+    /**
+     * 安全运行
+     */
+    private static class SafeRun implements Runnable {
+        /**
+         * 内置运行实例
+         */
+        private final Runnable _innerR;
+
+        /**
+         * 类参数构造器
+         * @param innerR 内置运行实例
+         */
+        private SafeRun(Runnable innerR) {
+            _innerR = innerR;
+        }
+
+        @Override
+        public void run() {
+            if (null == _innerR) {
+                return;
+            }
+
+            try {
+                //运行
+                _innerR.run();
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(),e);
+            }
+        }
+    }
+
+
 }

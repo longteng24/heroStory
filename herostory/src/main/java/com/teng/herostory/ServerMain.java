@@ -1,6 +1,8 @@
 package com.teng.herostory;
 
 import com.teng.herostory.cmdhandler.CmdHandlerFactory;
+import com.teng.herostory.mq.MqProducer;
+import com.teng.herostory.util.RedisUtil;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -49,6 +51,10 @@ public class ServerMain {
         CmdHandlerFactory.init();
         //初始化数据库连接
         MySqlSessionFactory.init();
+        //初始化redis
+        RedisUtil.init();
+        //初始化消息队列
+        MqProducer.init();
 
         // 拉客的   accpet  客户端请求，建立连接，交给work处理
         EventLoopGroup bossGroup = new NioEventLoopGroup();
