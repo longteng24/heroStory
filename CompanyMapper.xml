@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cstc.sonep.portal.modules.companyarchives.companyinfo.mapper.CompanyMapper">
+
+    <resultMap id="CompanyNewResult" type="com.cstc.sonep.portal.modules.companyarchives.companyinfo.domain.Company">
+        <id     column="id"                     property="id" />
+        <result column="COMPANY_ID"             property="companyId" />
+        <result column="COMPANY_STATUS"         property="companyStatus" />
+        <result column="COMPANY_LABEL"          property="companyLabel" />
+        <result column="APPROVE_ID"             property="approveId" />
+        <result column="COMPANY_CODES"          property="companyCodes" />
+        <result column="COMPANY_REGCOMPANYNAME" property="companyRegcompanyname" />
+        <result column="COMPANY_NAME"           property="companyName" />
+        <result column="COMPANY_CYM"            property="companyCym" />
+        <result column="COMPANY_REGADDRESS"     property="companyRegaddress" />
+        <result column="COMPANY_FDDBR"          property="companyFddbr" />
+        <result column="COMPANY_ADDRESS"        property="companyAddress" />
+        <result column="COMPANY_POSTCODE"       property="companyPostcode" />
+        <result column="COMPANY_JSFZR"          property="companyJsfzr" />
+        <result column="COMPANY_QYGM"           property="companyQygm" />
+        <result column="COMPANY_SSJT"           property="companySsjt" />
+        <result column="COMPANY_CODE_TRADE"     property="companyCodeTrade" />
+        <result column="COMPANY_NAME_TRADE"     property="companyNameTrade" />
+        <result column="COMPANY_CODE_QTHY"      property="companyCodeQthy" />
+        <result column="COMPANY_NAME_QTHY"      property="companyNameQthy" />
+        <result column="COMPANY_SOCIETYCODE"    property="companySocietycode" />
+        <result column="COMPANY_CSOCIETYCODE"   property="companyCsocietycode" />
+        <result column="COMPANY_ORGID"          property="companyOrgid" />
+        <result column="COMPANY_CONTACT"        property="companyContact" />
+        <result column="COMPANY_TELEPHONE"      property="companyTelephone" />
+        <result column="COMPANY_MOBILE"         property="companyMobile" />
+        <result column="COMPANY_EMAIL"          property="companyEmail" />
+        <result column="COMPANY_COMMENT"        property="companyComment" />
+        <result column="COMPANY_ACTIVETIME"     property="companyActivetime" />
+        <result column="COMPANY_FILENAME"       property="companyFilename" />
+        <result column="COMPANY_FILEURL"        property="companyFileurl" />
+        <result column="COMPANY_CODE_MAINHY"    property="companyCodeMainhy" />
+        <result column="DISTRICT_CODE"          property="districtCode" />
+        <result column="COMPANY_NAME_MAINHY"    property="companyNameMainhy" />
+        <result column="IS_IN_PARK"             property="isInPark" />
+        <result column="PARK_NAME"              property="parkName" />
+        <result column="EIA_TYPE"               property="eiaType" />
+        <result column="LDP_TYPE"               property="ldpType" />
+        <result column="PATH"                   property="path" />
+        <result column="APPLY_DESCRIBE"         property="applyDescribe" />
+        <result column="CREATE_TIME"            property="createTime" />
+        <result column="CREATE_BY"              property="createBy" />
+        <result column="UPDATE_TIME"            property="updateTime" />
+        <result column="UPDATE_BY"              property="updateBy" />
+        <result column="IS_VOID"                property="isVoid" />
+        <result column="LOC_TIME_ZONE"          property="locTimeZone" />
+        <result column="DEPARTMENT_CODE"        property="departmentCode" />
+        <result column="COMPANY_CODE"           property="companyCode" />
+        <result column="APPLY_TIME"             property="applyTime" />
+        <result column="FLOW_STATUS"            property="flowStatus" />
+    </resultMap>
+    <resultMap id="CompanyVoResult" type="com.cstc.sonep.portal.modules.companyarchives.companyinfo.dto.CompanyVo">
+        <id     column="id"                     property="id" />
+        <result column="COMPANY_ID"             property="companyId" />
+        <result column="COMPANY_STATUS"         property="companyStatus" />
+        <result column="COMPANY_LABEL"          property="companyLabel" />
+        <result column="APPROVE_ID"             property="approveId" />
+        <result column="COMPANY_CODES"          property="companyCodes" />
+        <result column="COMPANY_REGCOMPANYNAME" property="companyRegcompanyname" />
+        <result column="COMPANY_NAME"           property="companyName" />
+        <result column="COMPANY_CYM"            property="companyCym" />
+        <result column="COMPANY_REGADDRESS"     property="companyRegaddress" />
+        <result column="COMPANY_FDDBR"          property="companyFddbr" />
+        <result column="COMPANY_ADDRESS"        property="companyAddress" />
+        <result column="COMPANY_POSTCODE"       property="companyPostcode" />
+        <result column="COMPANY_JSFZR"          property="companyJsfzr" />
+        <result column="COMPANY_QYGM"           property="companyQygm" />
+        <result column="COMPANY_SSJT"           property="companySsjt" />
+        <result column="COMPANY_CODE_TRADE"     property="companyCodeTrade" />
+        <result column="COMPANY_NAME_TRADE"     property="companyNameTrade" />
+        <result column="COMPANY_CODE_QTHY"      property="companyCodeQthy" />
+        <result column="COMPANY_NAME_QTHY"      property="companyNameQthy" />
+        <result column="COMPANY_SOCIETYCODE"    property="companySocietycode" />
+        <result column="COMPANY_CSOCIETYCODE"   property="companyCsocietycode" />
+        <result column="COMPANY_ORGID"          property="companyOrgid" />
+        <result column="COMPANY_CONTACT"        property="companyContact" />
+        <result column="COMPANY_TELEPHONE"      property="companyTelephone" />
+        <result column="COMPANY_MOBILE"         property="companyMobile" />
+        <result column="COMPANY_EMAIL"          property="companyEmail" />
+        <result column="COMPANY_COMMENT"        property="companyComment" />
+        <result column="COMPANY_ACTIVETIME"     property="companyActivetime" />
+        <result column="COMPANY_FILENAME"       property="companyFilename" />
+        <result column="COMPANY_FILEURL"        property="companyFileurl" />
+        <result column="COMPANY_CODE_MAINHY"    property="companyCodeMainhy" />
+        <result column="DISTRICT_CODE"          property="districtCode" />
+        <result column="COMPANY_NAME_MAINHY"    property="companyNameMainhy" />
+        <result column="IS_IN_PARK"             property="isInPark" />
+        <result column="PARK_NAME"              property="parkName" />
+        <result column="EIA_TYPE"               property="eiaType" />
+        <result column="LDP_TYPE"               property="ldpType" />
+        <result column="PATH"                   property="path" />
+        <result column="APPLY_DESCRIBE"         property="applyDescribe" />
+        <result column="CREATE_TIME"            property="createTime" />
+        <result column="CREATE_BY"              property="createBy" />
+        <result column="UPDATE_TIME"            property="updateTime" />
+        <result column="UPDATE_BY"              property="updateBy" />
+        <result column="IS_VOID"                property="isVoid" />
+        <result column="LOC_TIME_ZONE"          property="locTimeZone" />
+        <result column="DEPARTMENT_CODE"        property="departmentCode" />
+        <result column="COMPANY_CODE"           property="companyCode" />
+        <result column="APPLY_TIME"             property="applyTime" />
+        <result column="FLOW_STATUS"            property="flowStatus" />
+
+        <result column="FINISH_TIME"            property="finishTime" />
+        <result column="AUDIT_USER_ID"          property="auditUserId" />
+        <result column="AUDIT_OPINION"          property="auditOpinion" />
+    </resultMap>
+    <resultMap id="ApproveRecordVoResult" type="com.cstc.sonep.portal.modules.companyarchives.companyupdate.domain.ApproveRecord">
+        <id     column="id"                     property="id" />
+        <result column="COMPANY_ID"             property="companyId" />
+        <result column="CREATE_TIME"            property="createTime" />
+        <result column="CREATE_BY"              property="createBy" />
+        <result column="UPDATE_TIME"            property="updateTime" />
+        <result column="UPDATE_BY"              property="updateBy" />
+        <result column="IS_VOID"                property="isVoid" />
+        <result column="LOC_TIME_ZONE"          property="locTimeZone" />
+        <result column="DEPARTMENT_CODE"        property="departmentCode" />
+        <result column="COMPANY_CODE"           property="companyCode" />
+        <result column="APPLY_TIME"             property="applyTime" />
+        <result column="FLOW_STATUS"            property="flowStatus" />
+
+        <result column="FINISH_TIME"            property="finishTime" />
+        <result column="AUDIT_USER_ID"          property="auditUserId" />
+        <result column="AUDIT_OPINION"          property="auditOpinion" />
+
+        <result column="APPLICANT_NAME"         property="applicantName" />
+        <result column="APPLY_TYPE"             property="applyType" />
+        <result column="DISTRICT_CODE"          property="districtCode" />
+
+
+    </resultMap>
+
+    <!-- 企业信息查询 动态条件查询   -->
+    <select id="findCompanyByPage" parameterType="com.cstc.sonep.portal.modules.companyarchives.companyinfo.dto.CompanyRequestDto" resultMap="CompanyNewResult">
+        SELECT
+            TC.*,
+            AR.APPLY_TIME,
+            AR.FLOW_STATUS
+        FROM APPROVE_RECORD AR LEFT JOIN T_COMPANY TC ON TC.APPROVE_ID = AR.ID
+        WHERE AR.APPLY_TYPE='1' AND TC.IS_VOID = 0 AND AR.IS_VOID = 0
+        <if test="dto.companyName != '' and dto.companyName != null">
+            AND TC.COMPANY_NAME LIKE CONCAT('%', #{dto.companyName}, '%')
+        </if>
+        <if test="dto.companyNameTrade != '' and dto.companyNameTrade != null">
+            AND TC.COMPANY_NAME_TRADE = #{dto.companyNameTrade}
+        </if>
+        <if test="dto.flowStatus != '' and dto.flowStatus != null">
+            AND FLOW_STATUS = #{dto.flowStatus}
+        </if>
+        <if test="dto.districtCode != '' and dto.districtCode != null">
+            AND TC.DISTRICT_CODE = #{dto.districtCode}
+        </if>
+        <if test="dto.parkName != '' and dto.parkName != null">
+            AND TC.PARK_NAME = #{dto.parkName}
+        </if>
+        ORDER BY APPLY_TIME DESC
+    </select>
+
+
+    <!-- 环保档案 企业信息查询 动态条件查询   -->
+    <select id="searchCompanyByPage" parameterType="com.cstc.sonep.portal.modules.companyarchives.companyinfo.dto.CompanyArchivesDto" resultMap="CompanyNewResult">
+        SELECT TC.*,
+            NULL APPLY_TIME,
+            NULL FLOW_STATUS
+        from T_COMPANY TC
+            left join t_wry w on tc.company_id=w.company_id
+        WHERE tc.is_void = 0
+        <!-- 基本信息 -->
+        <if test="dto.companyName != '' and dto.companyName != 'undefined' and dto.companyName != null">
+            AND TC.COMPANY_NAME LIKE CONCAT('%', #{dto.companyName}, '%')
+        </if>
+        <if test="dto.companySocietycode != '' and dto.companySocietycode != 'undefined' and dto.companySocietycode != null">
+            AND TC.company_societycode = #{dto.companySocietycode}
+        </if>
+        <if test="dto.managementDept != '' and dto.managementDept != 'undefined' and dto.managementDept != null">
+            AND TC.management_dept = #{dto.managementDept}
+        </if>
+        <if test="dto.parkName != '' and dto.parkName != 'undefined' and dto.parkName != null">
+            AND TC.park_name = #{dto.parkName}
+        </if>
+        <if test="dto.companyCodeTrade != '' and dto.companyCodeTrade != 'undefined' and dto.companyCodeTrade != null">
+            AND TC.company_code_trade = #{dto.companyCodeTrade}
+        </if>
+        <if test="dto.companyStatus != null and dto.companyStatus != 'undefined' ">
+            AND TC.company_status = #{dto.companyStatus}
+        </if>
+        <!-- 管理属性 -->
+        <if test="dto.isInPark != null and dto.isInPark != 'undefined' ">
+            AND TC.is_in_park = #{dto.isInPark}
+        </if>
+        <if test="dto.isKeyPollution != null and dto.isKeyPollution.length != 0">
+            AND TC.is_key_pollution in
+            <foreach collection="dto.isKeyPollution" item="item"
+                     index="index" open="(" close=")" separator=",">
+                '${item}'
+            </foreach>
+        </if>
+        <if test="dto.isInstallOnlineMonitoring != null and dto.isInstallOnlineMonitoring != 'undefined' ">
+            AND TC.is_install_online_monitoring = #{dto.isInstallOnlineMonitoring}
+        </if>
+        <if test="dto.isSupervisoryMonitoring != null and dto.isSupervisoryMonitoring != 'undefined' ">
+            AND TC.is_supervisory_monitoring = #{dto.isSupervisoryMonitoring}
+        </if>
+        <if test="dto.isCityDirectlyUnder != null and dto.isCityDirectlyUnder != 'undefined' ">
+            AND TC.is_city_directly_under = #{dto.isCityDirectlyUnder}
+        </if>
+        <if test="dto.isTwelveAndThreeIndustry != null and dto.isTwelveAndThreeIndustry != 'undefined'">
+            AND TC.is_twelve_and_three_industry = #{dto.isTwelveAndThreeIndustry}
+        </if>
+        <if test="dto.isEwp != null and dto.isEwp != 'undefined' ">
+            AND TC.is_ewp = #{dto.isEwp}
+        </if>
+        <if test="dto.isTwoViolate != null and dto.isTwoViolate != 'undefined' ">
+            AND TC.is_two_violate = #{dto.isTwoViolate}
+        </if>
+
+        <!-- 污染特性 -->
+        <if test="dto.wryClass != null and dto.wryClass.length != 0 ">
+            AND w.wry_class in
+            <foreach collection="dto.wryClass" item="item"
+                     index="index" open="(" close=")" separator=",">
+                '${item}'
+            </foreach>
+        </if>
+        <if test="dto.airPollutantsType != null and  dto.airPollutantsType.length != 0">
+            AND w.air_pollutants_types in
+            <foreach collection="dto.airPollutantsType" item="item"  open="(" close=")" separator=",">
+                '${item}'
+            </foreach>
+        </if>
+        <if test="dto.waterPollutantsType != null and  dto.waterPollutantsType.length != 0">
+            AND w.water_pollutants_types in
+            <foreach collection="dto.waterPollutantsType" item="item"
+                     index="index" open="(" close=")" separator=",">
+                '${item}'
+            </foreach>
+        </if>
+        <if test="dto.industrialWET != null and  dto.industrialWET.length != 0">
+            AND w.industrial_wastewater_emissions_to in
+            <foreach collection="dto.industrialWET" item="item"
+                     index="index" open="(" close=")" separator=",">
+                '${item}'
+            </foreach>
+        </if>
+        <if test="dto.gisWasteDM != null and  dto.gisWasteDM.length != 0">
+            AND w.gis_waste_disposal_method in
+            <foreach collection="dto.gisWasteDM" item="item"
+                     index="index" open="(" close=")" separator=",">
+                '${item}'
+            </foreach>
+        </if>
+        <if test="dto.hazardousWDM != null and  dto.hazardousWDM.length != 0">
+            AND w.hazardous_waste_disposal_method in
+            <foreach collection="dto.hazardousWDM" item="item"
+                     index="index" open="(" close=")" separator=",">
+                '${item}'
+            </foreach>
+        </if>
+        <if test="dto.annualWasteScale != null and dto.annualWasteScale != 'undefined' ">
+            AND w.annual_waste_scale = #{dto.annualWasteScale}
+        </if>
+
+        <!-- 环保手续 -->
+        <if test="dto.eiaType != null and dto.eiaType != 'undefined' ">
+            AND TC.eia_type = #{dto.eiaType}
+        </if>
+        <if test="dto.licenceManagementClass != null and dto.licenceManagementClass != 'undefined' ">
+            AND TC.licence_management_class = #{dto.licenceManagementClass}
+        </if>
+        <if test="dto.isQjscshzdqy != null and dto.isQjscshzdqy != 'undefined' ">
+            AND TC.is_qjscshzdqy = #{dto.isQjscshzdqy}
+        </if>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
+    <!-- 企业信息 流转日志查询   -->
+    <select id="findCompanyLog" parameterType="com.cstc.sonep.portal.modules.companyarchives.companyinfo.dto.CompanyRequestDto" resultMap="ApproveRecordVoResult">
+        SELECT
+            AR.*
+        FROM T_COMPANY TC,APPROVE_RECORD AR
+        WHERE TC.APPROVE_ID = AR.ID
+        AND COMPANY_SOCIETYCODE = #{dto.companySocietycode}
+        ORDER BY APPLY_TIME DESC
+    </select>
+
+
+    <select id="findCompanyByStatusIn" resultMap="CompanyNewResult">
+        SELECT
+            TC.*,
+            AR.APPLY_TIME,
+            AR.FLOW_STATUS
+        FROM T_COMPANY TC,APPROVE_RECORD AR
+        WHERE TC.APPROVE_ID = AR.ID
+        AND AR.APPLY_TYPE='1'
+        AND TC.IS_VOID = 0 AND AR.IS_VOID = 0
+        AND FLOW_STATUS IN ('1','2','4')
+        AND COMPANY_SOCIETYCODE = #{code}
+    </select>
+
+    <select id="findCompanyBySocietyCode" resultMap="CompanyNewResult">
+        SELECT * FROM T_COMPANY WHERE  COMPANY_SOCIETYCODE = #{societyCode}
+    </select>
+
+    <select id="findCompanyById" resultMap="CompanyVoResult">
+        SELECT
+            TC.*,
+            AR.APPLY_TIME,
+            AR.FLOW_STATUS,
+            AR.FINISH_TIME,
+            AR.AUDIT_USER_ID,
+            AR.AUDIT_OPINION
+        FROM T_COMPANY TC,APPROVE_RECORD AR
+        WHERE TC.APPROVE_ID = AR.ID
+        <if test="id != null and id != ''" >
+            AND TC.ID = #{id}
+        </if>
+        <if test="idApp != null and idApp != ''" >
+            AND TC.APPROVE_ID = #{idApp}
+        </if>
+    </select>
+
+    <select id="findAuditUserName" resultType="string">
+        SELECT USER_NAME FROM SONEP_USER WHERE ID = #{id}
+    </select>
+
+</mapper>
